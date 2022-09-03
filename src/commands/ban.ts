@@ -1,4 +1,5 @@
 import { ApplicationCommandOptionType, GuildMember } from "discord.js";
+import { ban, banError, banMsgToMember } from "../assets/contents";
 import { checkPerms } from "../assets/functions";
 import { Command } from "../structures/Command";
 
@@ -13,8 +14,16 @@ export default new Command({
             required: true
         }
     ],
-    run: ({ interaction, args }) => {
-        const member = args.getMember('member');
-        if (!checkPerms({ interaction, mod: interaction.member, member: member as GuildMember }))
+    run: async({ interaction, args }) => {
+        const member = args.getMember('member') as GuildMember;
+        if (!checkPerms({ interaction, mod: interaction.member, member: member, checkOwner: true, checkSelfUser: true })) return;
+        await interaction.deferReply();
+
+        await member.send(banMsgToMember(interaction.user, interaction.guild.name)).catch(() => {});
+        const result = await member.ban().catch(() => {
+            interaction.editReply(banError(interaction.user, member.user)).catch(() => {});
+        });
+
+        if (result) interaction.editReply(ban(interaction.user, member.user)).catch(() => {});
     }
-})
+});
