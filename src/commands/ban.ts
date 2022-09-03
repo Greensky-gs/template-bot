@@ -20,7 +20,7 @@ export default new Command({
         await interaction.deferReply();
 
         await member.send(banMsgToMember(interaction.user, interaction.guild.name)).catch(() => {});
-        const result = await member.ban().catch(() => {
+        const result = await member.ban({ reason: `Banned by ${interaction.user.tag} ( ${interaction.user.id} )` }).catch(() => {
             interaction.editReply(banError(interaction.user, member.user)).catch(() => {});
         });
 
