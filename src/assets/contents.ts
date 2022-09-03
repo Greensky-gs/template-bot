@@ -120,3 +120,36 @@ export function banError(user: User, member: User) {
         .setColor('#ff0000')
     )
 }
+export function kick(user: User, member: User) {
+    return generateData(basic(user)
+        .setTitle("Kick")
+        .setDescription(`Someone has been kicked from the server.`)
+        .setFields(
+            {
+                name: 'Moderator',
+                value: `<@${user.id}> ( ${user.tag} )`,
+                inline: true
+            },
+            {
+                name: 'Member',
+                value: `<@${member.id}> ( ${member.tag} )`,
+                inline: true
+            }
+        )
+        .setColor('#ff0000')
+    )
+}
+export function kickMsgToMember(user: User, guildName: string) {
+    return generateData(basic(user)
+        .setTitle("Kick")
+        .setDescription(`You've been kicked from ${guildName} by ${user.tag} ( <@${user.id}> \`${user.id}\` )`)
+        .setColor('#ff0000')
+    )
+};
+export function kickError(user: User, member: User) {
+    return generateData(basic(user)
+        .setTitle("Error")
+        .setDescription(`I've encountered an error while kicking <@${member.id}>`)
+        .setColor('#ff0000')
+    )
+}
