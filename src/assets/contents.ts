@@ -153,3 +153,41 @@ export function kickError(user: User, member: User) {
         .setColor('#ff0000')
     )
 }
+export function mute(user: User, member: User, time: number) {
+    return generateData(basic(user)
+        .setTitle("Mute")
+        .setDescription(`A member has been muted.`)
+        .setFields(
+            {
+                name: 'Moderator',
+                value: `<@${user.id}> ( ${user.tag} )`,
+                inline: true
+            },
+            {
+                name: 'Member',
+                value: `<@${member.id}> ( ${member.tag} )`,
+                inline: true
+            },
+            {
+                name: 'Duration',
+                value: `Unmuted <t:${((time + Date.now()) / 1000).toFixed(0)}:R>`,
+                inline: true
+            }
+        )
+        .setColor('#ff0000')
+    )
+}
+export function muteMsgToMember(user: User, guildName: string, time: number) {
+    return generateData(basic(user)
+        .setTitle("Ban")
+        .setDescription(`You've been banned from ${guildName} by ${user.tag} ( <@${user.id}> \`${user.id}\` ).\nYou'll be unmuted <t:${((time + Date.now()) / 1000).toFixed(0)}:R>`)
+        .setColor('#ff0000')
+    )
+};
+export function muteError(user: User, member: User) {
+    return generateData(basic(user)
+        .setTitle("Error")
+        .setDescription(`I've encountered an error while muting <@${member.id}>`)
+        .setColor('#ff0000')
+    )
+}
