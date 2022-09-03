@@ -1,0 +1,21 @@
+{
+  "name": "template-bot",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "author": "Greensky-gs",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn tsc -b",
+    "start": "yarn node ."
+  },
+  "dependencies": {
+    "discord.js": "^14.3.0",
+    "fs": "^0.0.1-security",
+    "tsc": "^2.0.4",
+    "typescript": "^4.8.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1"
+  }
+}
