@@ -8,6 +8,7 @@ declare global {
             antispam: 'true' | string;
             antispamMaxCount?: string;
             antispamTime?: string;
+            feedbackChannel?: string;
         }
     }
 }

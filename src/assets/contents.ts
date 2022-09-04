@@ -257,3 +257,24 @@ export function memberCount(user: User, stats: { humans: number, bots: number })
         .setColor('DarkOrange')
     )
 }
+export function feedbackNotEnabled(user: User) {
+    return generateData(basic(user)
+        .setTitle("Feedback disabled")
+        .setDescription(`The bot's owner has disabled the feedback feature`)
+        .setColor('#ff0000')
+    )
+}
+export function feedback(user: User, feedback: string) {
+    return generateData(basic(user)
+        .setTitle("Feedback")
+        .setDescription(feedback)
+        .setColor('#00ff00')
+    )
+};
+export function deferFeedback(user: User) {
+    return generateData(basic(user)
+        .setTitle("Feedback")
+        .setDescription(`Your feedback has been sent in the feedback channel`)
+        .setColor('Orange')
+    )
+}

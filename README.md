@@ -30,6 +30,7 @@ joinChannel=your joins channel id
 leaveChannel=your leaves channel id
 antispamMaxCount=max messages before mute
 antispamTime=time in second before reseting
+feedbackChannel=feedback channel's id
 ```
 
 Once it's done, you can take a look to the files and custom them a bit, if you want.
