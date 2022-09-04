@@ -12,9 +12,13 @@ This template bot for Discord.js v14 in typescript have some very basics feature
 * [banlist](./src/commands/banlist.ts)
 * [unban](./src/commands/unban.ts)
 * [membercount](./src/commands/memberCount.ts)
+* [feedback](./src/commands/feedback.ts)
 
 ### Features
 * [antispam](./src/events/antispam.ts)
+* [feedback](./src/events/feedback.ts)
+* [join message](./src/events/guildMemberAdd.ts)
+* [leave message](./src/events/guildMemberRemove.ts)
 
 ## Initialisation
 First, you need to use the `.env` file and fill it like so :
