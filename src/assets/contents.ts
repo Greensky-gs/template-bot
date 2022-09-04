@@ -238,3 +238,22 @@ export function unbanned(user: User, member: User) {
         )
     )
 }
+export function memberCount(user: User, stats: { humans: number, bots: number }) {
+    return generateData(basic(user)
+        .setTitle("Membercount")
+        .setDescription(`There is a total of **${(stats.bots + stats.humans).toLocaleString('en')} members in the server**`)
+        .setFields(
+            {
+                name: 'Bots',
+                value: stats.bots.toLocaleString(),
+                inline: true
+            },
+            {
+                name: 'Humans',
+                value: stats.humans.toLocaleString(),
+                inline: true
+            }
+        )
+        .setColor('DarkOrange')
+    )
+}

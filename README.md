@@ -3,7 +3,7 @@ This is the code of a template discord bot in v14 made in typescript (because ty
 This bot has no database, and it works with slash commands only.
 
 # Features
-This template bot for Discord.js v14 in typescript have some features :
+This template bot for Discord.js v14 in typescript have some very basics features :
 
 ### Commands
 * [kick](./src/commands/kick.ts)
@@ -11,6 +11,7 @@ This template bot for Discord.js v14 in typescript have some features :
 * [mute](./src/commands/mute.ts)
 * [banlist](./src/commands/banlist.ts)
 * [unban](./src/commands/unban.ts)
+* [membercount](./src/commands/memberCount.ts)
 
 ### Features
 * [antispam](./src/events/antispam.ts)
