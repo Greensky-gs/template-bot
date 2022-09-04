@@ -2,6 +2,18 @@
 This is the code of a template discord bot in v14 made in typescript (because typescript is the best :))
 This bot has no database, and it works with slash commands only.
 
+# Features
+This template bot for Discord.js v14 in typescript have some features :
+
+### Commands
+* [kick](./src/commands/kick.ts)
+* [ban](./src/commands/ban.ts)
+* [mute](./src/commands/mute.ts)
+* [banlist](./src/commands/banlist.ts)
+
+### Features
+* antispam
+
 ## Initialisation
 First, you need to use the `.env` file and fill it like so :
 
@@ -9,10 +21,13 @@ First, you need to use the `.env` file and fill it like so :
 # Theses two are required
 token=your bot's token
 guild=your guild id
+antispam=true or false
 
 # Theses are optionnal
 joinChannel=your joins channel id
 leaveChannel=your leaves channel id
+antispamMaxCount=max messages before mute
+antispamTime=time in second before reseting
 ```
 
 Once it's done, you can take a look to the files and custom them a bit, if you want.

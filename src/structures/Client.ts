@@ -15,6 +15,7 @@ export class ExtendedClient extends Client {
 	start() {
 		if (!process.env.token) throw "Token expected in .env file";
 		if (!process.env.guild) throw  "Guild exepexted in .env file";
+		if (!process.env.antispam) throw "Antispam expected in .env file";
 
 		this.login(process.env.token);
 		this.loadModules();

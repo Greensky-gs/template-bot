@@ -205,3 +205,10 @@ export function guildBans(user: User, bans: Collection<string, GuildBan>) {
         .setColor('#ff0000')
     )
 };
+export function antispamTooFast(user:User) {
+    return generateData(basic(user)
+        .setTitle("Too fast")
+        .setDescription(`<@${user.id}>, you're sending messages too fast.\n\nYou've been muted for 5 minutes`)
+        .setColor('#ff0000')
+    )
+};

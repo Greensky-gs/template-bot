@@ -3,8 +3,11 @@ declare global {
         interface ProcessEnv {
             token: string;
             guild: string;
-            joinChannel: string;
-            leaveChannel: string;
+            joinChannel?: string;
+            leaveChannel?: string;
+            antispam: 'true' | string;
+            antispamMaxCount?: string;
+            antispamTime?: string;
         }
     }
 }
