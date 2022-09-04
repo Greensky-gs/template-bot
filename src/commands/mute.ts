@@ -68,6 +68,7 @@ export default new Command({
             description: "Reason for the mute"
         }
     ],
+    permissions: [{ name: 'mute members', perm: 'MuteMembers' }],
     run: async({ interaction, args }) => {
         const member = args.get('member', true).member as GuildMember;
         const time = args.getNumber('time') * 1000;

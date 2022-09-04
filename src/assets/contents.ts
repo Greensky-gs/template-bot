@@ -1,4 +1,4 @@
-import { Embed, EmbedBuilder, User } from "discord.js";
+import { Collection, Embed, EmbedBuilder, GuildBan, User } from "discord.js";
 import { permissionsArray } from "../typings/Command";
 
 const basic = (user: User) => {
@@ -191,3 +191,17 @@ export function muteError(user: User, member: User) {
         .setColor('#ff0000')
     )
 }
+export function noBans(user: User) {
+    return generateData(basic(user)
+        .setTitle("No bans")
+        .setDescription(`No member are banned from the server`)
+        .setColor('#00ff00')
+    )
+};
+export function guildBans(user: User, bans: Collection<string, GuildBan>) {
+    return generateData(basic(user)
+        .setTitle("Bans")
+        .setDescription(`${bans.size} people are banned :\n${bans.map(x => `${x.user.tag} \`${x.user.id}\``).join(', ')}`)
+        .setColor('#ff0000')
+    )
+};

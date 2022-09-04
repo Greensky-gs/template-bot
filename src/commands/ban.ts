@@ -14,6 +14,7 @@ export default new Command({
             required: true
         }
     ],
+    permissions: [{ name: 'ban members', perm: 'BanMembers' }],
     run: async({ interaction, args }) => {
         const member = args.getMember('member') as GuildMember;
         if (!checkPerms({ interaction, mod: interaction.member, member: member, checkOwner: true, checkSelfUser: true })) return;
