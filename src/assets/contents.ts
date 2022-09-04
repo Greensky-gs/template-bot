@@ -212,3 +212,29 @@ export function antispamTooFast(user:User) {
         .setColor('#ff0000')
     )
 };
+export function unknownBan(user: User, id: string) {
+    return generateData(basic(user)
+        .setTitle("Unknown ban")
+        .setDescription(`I cannot find a member banned with the id \`${id}\``)
+        .setColor('#ff0000')
+    )
+};
+export function unbanned(user: User, member: User) {
+    return generateData(basic(user)
+        .setTitle("Unban")
+        .setDescription(`A member has been unbanned`)
+        .setColor('#00ff00')
+        .setFields(
+            {
+                name: 'Moderator',
+                inline: true,
+                value: `<@${user.id}> ( ${user.id} )`
+            },
+            {
+                name: 'Member',
+                inline: true,
+                value: `${member.tag} ( ${member.id} )`
+            }
+        )
+    )
+}

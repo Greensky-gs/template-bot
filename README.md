@@ -10,9 +10,10 @@ This template bot for Discord.js v14 in typescript have some features :
 * [ban](./src/commands/ban.ts)
 * [mute](./src/commands/mute.ts)
 * [banlist](./src/commands/banlist.ts)
+* [unban](./src/commands/unban.ts)
 
 ### Features
-* antispam
+* [antispam](./src/events/antispam.ts)
 
 ## Initialisation
 First, you need to use the `.env` file and fill it like so :
