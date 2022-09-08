@@ -26,7 +26,7 @@ export class ExtendedClient extends Client {
 	}
 	loadEvents() {
 		readdirSync(`./${this.#path}/events`).forEach(async(fileName) => {
-            const event: Event<keyof ClientEvents> = require(`../events/${fileName}`);
+            const event: Event<keyof ClientEvents> = require(`../events/${fileName}`).default;
         
 			this.on(event.event, event.run);
 		});
