@@ -34,7 +34,7 @@ export class ExtendedClient extends Client {
 	loadCommands() {
 		const slashCommands: ApplicationCommandDataResolvable[] = [];
 		readdirSync(`./${this.#path}/commands`).forEach(async(fileName) => {
-			const file: CommandType = require(`../commands/${fileName}`);
+			const file: CommandType = require(`../commands/${fileName}`).default;
 			
 			slashCommands.push(file);
 			this.commands.set(file.name, file);

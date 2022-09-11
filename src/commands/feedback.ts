@@ -7,7 +7,6 @@ export default new Command({
     name: 'feedback',
     description: "Leave your feedback of the server",
     run: async({ interaction }) => {
-        await interaction.deferReply();
         const channel = await interaction.guild.channels.fetch(process.env.feedbackChannel);
 
         if (!channel || channel.type !== ChannelType.GuildText) return interaction.editReply(feedbackNotEnabled(interaction.user)).catch(() => {});
