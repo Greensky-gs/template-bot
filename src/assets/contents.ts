@@ -1,4 +1,4 @@
-import { Collection, Embed, EmbedBuilder, GuildBan, User } from "discord.js";
+import { Collection, Embed, EmbedBuilder, GuildBan, GuildMember, User } from "discord.js";
 import { permissionsArray } from "../typings/Command";
 
 const basic = (user: User) => {
@@ -277,4 +277,24 @@ export function deferFeedback(user: User) {
         .setDescription(`Your feedback has been sent in the feedback channel`)
         .setColor('Orange')
     )
+}
+export function adminListQuestion(user: User) {
+    return generateData(basic(user)
+        .setTitle("Type")
+        .setDescription(`Which type of administrator do you want to see ?`)
+        .setColor('Yellow')
+    );
+}
+export function cancel() {
+    return generateData(new EmbedBuilder()
+        .setTitle("💡 Command canceled")
+        .setColor('Yellow')
+    )
+}
+export function adminList(user: User, admins: Collection<string, GuildMember>) {
+    return generateData(basic(user)
+        .setTitle("Admin list")
+        .setDescription(`Here are all the administrators that you want:\n${admins.map(x => `<@${x.user.id}>`).join(' ')}`)
+        .setColor('Orange')
+    );
 }

@@ -24,7 +24,7 @@ This template bot for Discord.js v14 in typescript have some very basics feature
 First, you need to use the `.env` file and fill it like so :
 
 ```
-# Theses two are required
+# Theses three are required
 token=your bot's token
 guild=your guild id
 antispam=true or false
