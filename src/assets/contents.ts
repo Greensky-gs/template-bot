@@ -298,3 +298,17 @@ export function adminList(user: User, admins: Collection<string, GuildMember>) {
         .setColor('Orange')
     );
 }
+export function reflex(user: User, time?: number)  {
+    if (!time) {
+        return generateData(basic(user)
+            .setTitle("Reflex")
+            .setDescription(`Be ready to click...`)
+            .setColor('Yellow')
+        )
+    };
+    return generateData(basic(user)
+        .setTitle("Reflex")
+        .setDescription(`You managed to click in ${time} milliseconds (that's nice)`)
+        .setColor('Orange')
+    )
+}
