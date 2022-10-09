@@ -335,3 +335,32 @@ export function reflex(user: User, time?: number | string) {
     }
     return generateData(`You managed to click in ${time} milliseconds (that's nice)`);
 }
+export function invalidCalc(user: User) {
+    return generateData(
+        basic(user)
+            .setTitle('Invalid math operation')
+            .setDescription(`You entered an invalid math operation`)
+            .setColor('#ff0000')
+    );
+}
+export function calc(user: User, calc: string, result: number | string) {
+    const str: string = typeof result === 'string' ? result : result.toString();
+    return generateData(
+        basic(user)
+            .setTitle('Calculation')
+            .setDescription(`Here is your math calculation`)
+            .setFields(
+                {
+                    name: 'calculation',
+                    value: calc,
+                    inline: true
+                },
+                {
+                    name: 'result',
+                    value: str,
+                    inline: true
+                }
+            )
+            .setColor('#00ff00')
+    );
+}
