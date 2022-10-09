@@ -294,11 +294,11 @@ export function cancel() {
 export function adminList(user: User, admins: Collection<string, GuildMember>) {
     return generateData(basic(user)
         .setTitle("Admin list")
-        .setDescription(`Here are all the administrators that you want:\n${admins.map(x => `<@${x.user.id}>`).join(' ')}`)
+        .setDescription(`Here are all the administrators that you want (${admins.size}):\n${admins.map(x => `<@${x.user.id}>`).join(' ')}`)
         .setColor('Orange')
     );
 }
-export function reflex(user: User, time?: number)  {
+export function reflex(user: User, time?: number | string)  {
     if (!time) {
         return generateData(basic(user)
             .setTitle("Reflex")
@@ -306,9 +306,12 @@ export function reflex(user: User, time?: number)  {
             .setColor('Yellow')
         )
     };
-    return generateData(basic(user)
-        .setTitle("Reflex")
-        .setDescription(`You managed to click in ${time} milliseconds (that's nice)`)
-        .setColor('Orange')
-    )
+    if (time === 'start') {
+        return generateData(basic(user)
+            .setTitle("Reflex")
+            .setDescription(`Click !`)
+            .setColor('#00ff00')
+        )
+    }
+    return generateData(`You managed to click in ${time} milliseconds (that's nice)`);
 }

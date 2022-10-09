@@ -1,5 +1,5 @@
 import { ButtonBuilder, ComponentType, Message } from "discord.js";
-import { toActionRow, waitReflexBtn } from "../assets/components";
+import { reflexBtn, toActionRow, waitReflexBtn } from "../assets/components";
 import { reflex, cancel } from "../assets/contents";
 import { wait } from "../assets/wait";
 import { waitForInteraction } from "../assets/waitFor";
@@ -12,6 +12,12 @@ export default new Command({
         const reply = (await interaction.reply(Object.assign(reflex(interaction.user), { fetchReply: true, components: [ toActionRow<ButtonBuilder>([waitReflexBtn]) ]} ))) as unknown as Message<true>
         await wait(Math.floor(5000) + 2000);
 
+        await interaction.editReply(Object.assign(
+            reflex(interaction.user, 'start'),
+            {
+                components: [ toActionRow<ButtonBuilder>([reflexBtn]) ]
+            }
+        ));
         const started = Date.now();
         const clicked = await waitForInteraction({
             user: interaction.user,

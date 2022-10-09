@@ -25,4 +25,4 @@ export const toActionRow = <T extends AnyComponentBuilder>(components: AnyCompon
     return row;
 };
 export const reflexBtn = new ButtonBuilder({ label: 'Click !', style: ButtonStyle.Danger, customId: 'reflexBtn' });
-export const waitReflexBtn = new ButtonBuilder({ label: 'wait...', style: ButtonStyle.Secondary, customId: 'reflexBtn' });
+export const waitReflexBtn = new ButtonBuilder({ label: 'wait...', style: ButtonStyle.Secondary, customId: 'reflexBtn', disabled: true });
