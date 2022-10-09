@@ -6,9 +6,10 @@ import { Event } from '../structures/Event';
 export default new Event('messageCreate', async (message) => {
     if (!message.guild) return;
     if (process.env.antispam !== 'true') return;
+    if (!message.author) return;
 
-    if (message.member.id === message.guild.ownerId || message.member.permissions.has('ManageMessages', true)) return;
-    const data = (spams.get(message.author.id) || 0) + 1;
+    if (message.author.id === message.guild.ownerId || message.member.permissions.has('ManageMessages', true)) return;
+    const data = (spams.get(message.author?.id) || 0) + 1;
     const maxMessages = parseInt(process.env.antispamMaxCount) ?? 10;
     const time = (parseInt(process.env.antispamTime) ?? 10) * 1000;
 
