@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn tsc -b",
-    "start": "yarn node ."
+    "start": "yarn node .",
+    "prettier:check": "yarn prettier -c src",
+    "prettier:fix": "yarn run prettier -w src"
   },
   "dependencies": {
     "@hkh12/node-calc": "^4.2.1",
