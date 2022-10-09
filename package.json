@@ -9,11 +9,12 @@
     "start": "yarn node ."
   },
   "dependencies": {
+    "@hkh12/node-calc": "^4.2.1",
     "discord.js": "^14.3.0",
+    "dotenv": "^16.0.2",
     "fs": "^0.0.1-security",
     "tsc": "^2.0.4",
-    "typescript": "^4.8.2",
-    "dotenv": "^16.0.2"
+    "typescript": "^4.8.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.36.1",
