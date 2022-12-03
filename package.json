@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hkh12/node-calc": "^4.2.1",
+    "amethystjs": "^1.2.4",
     "discord.js": "^14.3.0",
     "dotenv": "^16.0.2",
     "fs": "^0.0.1-security",
