@@ -15,3 +15,6 @@ const client = new AmethystClient({
 })
 
 client.start({});
+
+// dotenv checks
+process.env.locale = process.env.locale ?? 'en';
