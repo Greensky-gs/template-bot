@@ -4,6 +4,7 @@ declare global {
             token: string;
             guild: string;
             joinChannel?: string;
+            joinImage: 'true' | string;
             leaveChannel?: string;
             antispam: 'true' | string;
             antispamMaxCount?: string;

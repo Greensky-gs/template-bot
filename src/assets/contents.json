@@ -1,0 +1,9 @@
+{
+    "welcome": {
+        "title": "Welcome",
+        "username": "{username}",
+        "discriminator": "{discriminator}",
+        "text": "Welcome among us !",
+        "message": "Hey <@{id}> !"
+    }
+}
