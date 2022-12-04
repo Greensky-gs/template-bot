@@ -1,2 +1,21 @@
 {
+    "commands": {
+        "kick": {
+            "name": "kick",
+            "description": "Kick a member from the server",
+            "options": {
+                "member": {
+                    "name": "member",
+                    "description": "Member to kick"
+                },
+                "reason": {
+                    "name": "reason",
+                    "description": "Reason of the kick"
+                }
+            }
+        }
+    },
+    "preconditions": {
+
+    }
 }
