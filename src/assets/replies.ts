@@ -112,5 +112,17 @@ export const replies = {
             typed: 'banned',
             insertMemberField: false
         }).setDescription(`You've been banned from <@${opts.guild.name}>`))
+    },
+    memberCount: ({ all, humans, bots }: { all: number; bots?: number; humans?: number }) => {
+        if (!humans || !bots) return generateData(new EmbedBuilder()
+            .setTitle("Member count")
+            .setDescription(`We are ${all.toLocaleString(process.env.locale)} in the server`)
+            .setColor('Orange')
+        )
+        return generateData(new EmbedBuilder()
+            .setTitle("Member count")
+            .setDescription(`We are ${all.toLocaleString(process.env.locale)} ( **${humans.toLocaleString(process.env.locale)}** humans and **${bots.toLocaleString(process.env.locale)}** bots ) in the server`)
+            .setColor('Orange')
+        )
     }
 } as const;

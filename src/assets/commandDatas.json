@@ -27,6 +27,10 @@
                     "description": "Reason of the ban"
                 }
             }
+        },
+        "membercount": {
+            "name": "membercount",
+            "description": "Displays the membercount of the server"
         }
     },
     "preconditions": {
