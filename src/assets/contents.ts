@@ -21,7 +21,8 @@ export const commandData = <T extends keyof typeof commandDatas.commands>(x: T):
 export const preconditionData = <T extends keyof typeof commandDatas.preconditions>(x: T): typeof commandDatas.preconditions[T] => {
     return commandDatas.preconditions[x];
 }
-export const getVar = <T extends keyof typeof contents, U extends keyof typeof contents[T]>(x: T, y: U, value: string) => {
-    const cnt = (contents[x][y] as string).replace(/\{+.\}/g, value);
+export const getVar = <T extends keyof typeof contents, U extends keyof typeof contents[T]>(x: T, y: U, value: string, split = true) => {
+    const cnt = (contents[x][y] as string).replace(/\{.+\}/g, value);
+    if (split) return cnt.split(' ').join('+').split('/').join('');
     return cnt;
 }
