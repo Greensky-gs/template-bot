@@ -1,5 +1,5 @@
 import { EmbedBuilder, InteractionReplyOptions, User, PermissionsString, Guild, GuildMember } from "discord.js";
-import { userName, dateNow } from "./functions";
+import { userName, dateNow, capitalize } from "./functions";
 
 const generateData = (content: string | EmbedBuilder, emoji?: string): InteractionReplyOptions => {
     const addEmoji = () => {
@@ -16,6 +16,46 @@ const generateData = (content: string | EmbedBuilder, emoji?: string): Interacti
     };
 }
 
+type modOptions = {
+    guild: Guild;
+    mod: User;
+    member: User;
+    reason: string;
+};
+
+const modEmbed = ({ mod, member, reason, type, typed, insertMemberField = true }: modOptions & { type: string; typed: string; insertMemberField?: boolean }) => {
+    const x = new EmbedBuilder()
+        .setTimestamp()
+        .setTitle(capitalize(type))
+        .setDescription(`A member has been ${typed}`)
+        .setColor('#ff0000')
+        .setThumbnail(mod.displayAvatarURL({ forceStatic: true }))
+        .setFields(
+            {
+                name: 'Moderator',
+                value: userName(mod),
+                inline: true
+            },
+            {
+                name: 'Date',
+                value: dateNow(),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: reason,
+                inline: false
+            }
+        )
+    
+    if (insertMemberField) x.setFields({
+        name: 'Member',
+        value: userName(member),
+        inline: true
+    }, ...x.data.fields)
+    return x;
+}
+
 export const replies = {
     missingPerms: (user: User, permissions: PermissionsString[]) => {
         return generateData(`You need ${permissions.length} permissions to execute this command.`, ':x:')
@@ -29,62 +69,20 @@ export const replies = {
     guildOnly: (user: User) => {
         return generateData('This command is only executable in a server', ':x:');
     },
-    kickInChat: (user: User, mod: User, reason: string) => {
-        return generateData(new EmbedBuilder()
-            .setTitle("Kick")
-            .setDescription(`A member has been kicked`)
-            .setFields(
-                {
-                    name: 'Member',
-                    value: userName(user),
-                    inline: true
-                },
-                {
-                    name: 'Moderator',
-                    value: userName(mod),
-                    inline: true
-                },
-                {
-                    name: 'Date',
-                    value: dateNow(),
-                    inline: true
-                },
-                {
-                    name: 'Reason',
-                    value: reason,
-                    inline: false
-                }
-            )
-            .setColor('#ff0000')
-            .setThumbnail(mod.displayAvatarURL({ forceStatic: true }))
-            .setTimestamp()
-        )
+    kickInChat: (opts: modOptions) => {
+        return generateData(modEmbed({
+            ...opts,
+            type: 'kick',
+            typed: 'kicked'
+        }));
     },
-    kickToUser: (user: User, mod: User, reason: string, guild: Guild) => {
-        return generateData(new EmbedBuilder()
-            .setTitle("Kick")
-            .setDescription(`You've been kicked from ${guild.name}`)
-            .setColor('#ff0000')
-            .setTimestamp()
-            .setThumbnail(mod.displayAvatarURL({ forceStatic: true }))
-            .setFields(
-                {
-                    name: 'Moderator',
-                    value: userName(mod),
-                    inline: true
-                },
-                {
-                    name: 'Date',
-                    value: dateNow(),
-                    inline: true
-                },
-                {
-                    name: 'Reason',
-                    value: reason,
-                    inline: false
-                }
-            )
-        )
+    kickToUser: (opts: modOptions) => {
+        return generateData(modEmbed({
+            ...opts,
+            type: 'kick',
+            typed: 'kicked',
+            insertMemberField: false
+        }).setDescription(`You've been kicked from ${opts.guild.name}`))
     },
     notKickable: (user: User, member: GuildMember) => {
         return generateData(new EmbedBuilder()
@@ -92,5 +90,27 @@ export const replies = {
             .setDescription(`<@${member.id}> isn't kickable`)
             .setColor('#ff0000')
         , ':x:')
+    },
+    notBannable: (user: User, member: GuildMember) => {
+        return generateData(new EmbedBuilder()
+            .setTitle("Member not bannable")
+            .setDescription(`<@${member.id}> isn't bannable`)
+            .setColor('#ff0000')
+        , ':x:')
+    },
+    banInChat: (opts: modOptions) => {
+        return generateData(modEmbed({
+            ...opts,
+            type: 'ban',
+            typed: 'banned'
+        }));
+    },
+    banToUser: (opts: modOptions) => {
+        return generateData(modEmbed({
+            ...opts,
+            type: 'ban',
+            typed: 'banned',
+            insertMemberField: false
+        }).setDescription(`You've been banned from <@${opts.guild.name}>`))
     }
 } as const;

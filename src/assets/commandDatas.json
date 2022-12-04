@@ -13,6 +13,20 @@
                     "description": "Reason of the kick"
                 }
             }
+        },
+        "ban": {
+            "name": "ban",
+            "description": "Ban a member",
+            "options": {
+                "member": {
+                    "name": "member",
+                    "description": "Member to ban"
+                },
+                "reason": {
+                    "name": "reason",
+                    "description": "Reason of the ban"
+                }
+            }
         }
     },
     "preconditions": {
