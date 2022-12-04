@@ -30,8 +30,18 @@ export default new AmethystCommand({
     if (!member.kickable) return interaction.reply(getReply('notKickable', {}, interaction.user, member));
     await interaction.deferReply();
 
-    await member.send(getReply('kickToUser', {}, member.user, interaction.user, reason, interaction.guild) as MessageCreateOptions).catch(() => {});
+    await member.send(getReply('kickToUser', {}, {
+        member: member.user,
+        reason,
+        guild: member.guild,
+        mod: interaction.user
+    }) as MessageCreateOptions).catch(() => {});
     await member.kick(reason).catch(() => {});
 
-    interaction.editReply(getReply('kickInChat', {}, member.user, interaction.user, reason)).catch(() => {});
+    interaction.editReply(getReply('kickInChat', {}, {
+        reason,
+        member: member.user,
+        mod: interaction.user,
+        guild: member.guild
+    })).catch(() => {});
 })
