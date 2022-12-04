@@ -21,6 +21,12 @@ const replies = {
     },
     customPrecondition: (user: User, text: string) => {
         return generateData(text, ':x:');
+    },
+    clientMissingPerm: (user: User, permissions: PermissionsString[]) => {
+        return generateData(`I need ${permissions.length} permissions to execute this command`, ':x:');
+    },
+    guildOnly: (user: User) => {
+        return generateData('This command is only executable in a server', ':x:');
     }
 } as const;
 
