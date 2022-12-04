@@ -37,6 +37,6 @@ export const getReply = <T extends keyof typeof replies>(x: T, options: Interact
 
 import commandDatas from './commandDatas.json';
 
-const commandData = <T extends keyof typeof commandDatas>(x: T, prop?: keyof typeof commandDatas[T]) => {
+export const commandData = <T extends keyof typeof commandDatas>(x: T, prop?: keyof typeof commandDatas[T]) => {
     return commandDatas[x][prop] ?? commandDatas[x];
 }
