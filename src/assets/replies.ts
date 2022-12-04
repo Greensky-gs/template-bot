@@ -1,5 +1,5 @@
-import { EmbedBuilder, InteractionReplyOptions, User, PermissionsString, Guild, GuildMember } from "discord.js";
-import { userName, dateNow, capitalize } from "./functions";
+import { EmbedBuilder, InteractionReplyOptions, User, PermissionsString, Guild, GuildMember, GuildBan } from "discord.js";
+import { userName, dateNow, capitalize, resizeString } from "./functions";
 
 const generateData = (content: string | EmbedBuilder, emoji?: string): InteractionReplyOptions => {
     const addEmoji = () => {
@@ -122,6 +122,16 @@ export const replies = {
         return generateData(new EmbedBuilder()
             .setTitle("Member count")
             .setDescription(`We are ${all.toLocaleString(process.env.locale)} ( **${humans.toLocaleString(process.env.locale)}** humans and **${bots.toLocaleString(process.env.locale)}** bots ) in the server`)
+            .setColor('Orange')
+        )
+    },
+    banlist: (user: User, bans: GuildBan[]) => {
+        return generateData(new EmbedBuilder()
+            .setTitle("Banlist")
+            .setDescription(resizeString({
+                str: bans.length === 0 ? 'There are no banned members' : `There are **${bans.length}** banned members :\n${bans.map((x => userName(x.user))).join('\n')}`,
+                maxLength: 2000
+            }))
             .setColor('Orange')
         )
     }

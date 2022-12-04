@@ -31,6 +31,10 @@
         "membercount": {
             "name": "membercount",
             "description": "Displays the membercount of the server"
+        },
+        "banlist": {
+            "name": "banlist",
+            "description": "Shows the list of the banned members"
         }
     },
     "preconditions": {
