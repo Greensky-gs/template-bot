@@ -11,7 +11,7 @@ export default new AmethystEvent('commandDenied', (command, reason) => {
         systRep(command?.interaction, getReply('clientMissingPerm', { ephemeral: true }, command?.interaction.user, reason.metadata?.permissions.need)).catch(() => {});
     }
     if (reason?.code === commandDeniedCode.GuildOnly) {
-        systRep(command.interaction, getReply('guildOnly', { ephemeral: true }, command.interaction.user))x;
+        systRep(command.interaction, getReply('guildOnly', { ephemeral: true }, command.interaction.user));
     }
     if (reason?.code === commandDeniedCode.CustomPrecondition) {
         systRep(command?.interaction, getReply('customPrecondition', { ephemeral: true }, command.interaction.user, reason.metadata.message)).catch(() => {});

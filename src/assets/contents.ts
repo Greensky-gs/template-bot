@@ -1,4 +1,4 @@
-import { EmbedBuilder, InteractionReplyOptions, PermissionsString, User } from "discord.js";
+import { EmbedBuilder, Guild, GuildMember, InteractionReplyOptions, PermissionsString, User } from "discord.js";
 
 const generateData = (content: string | EmbedBuilder, emoji?: string): InteractionReplyOptions => {
     const addEmoji = () => {
@@ -27,6 +27,70 @@ const replies = {
     },
     guildOnly: (user: User) => {
         return generateData('This command is only executable in a server', ':x:');
+    },
+    kickInChat: (user: User, mod: User, reason: string) => {
+        return generateData(new EmbedBuilder()
+            .setTitle("Kick")
+            .setDescription(`A member has been kicked`)
+            .setFields(
+                {
+                    name: 'Member',
+                    value: userName(user),
+                    inline: true
+                },
+                {
+                    name: 'Moderator',
+                    value: userName(mod),
+                    inline: true
+                },
+                {
+                    name: 'Date',
+                    value: dateNow(),
+                    inline: true
+                },
+                {
+                    name: 'Reason',
+                    value: reason,
+                    inline: false
+                }
+            )
+            .setColor('#ff0000')
+            .setThumbnail(mod.displayAvatarURL({ forceStatic: true }))
+            .setTimestamp()
+        )
+    },
+    kickToUser: (user: User, mod: User, reason: string, guild: Guild) => {
+        return generateData(new EmbedBuilder()
+            .setTitle("Kick")
+            .setDescription(`You've been kicked from ${guild.name}`)
+            .setColor('#ff0000')
+            .setTimestamp()
+            .setThumbnail(mod.displayAvatarURL({ forceStatic: true }))
+            .setFields(
+                {
+                    name: 'Moderator',
+                    value: userName(mod),
+                    inline: true
+                },
+                {
+                    name: 'Date',
+                    value: dateNow(),
+                    inline: true
+                },
+                {
+                    name: 'Reason',
+                    value: reason,
+                    inline: false
+                }
+            )
+        )
+    },
+    notKickable: (user: User, member: GuildMember) => {
+        return generateData(new EmbedBuilder()
+            .setTitle("Member not kickable")
+            .setDescription(`<@${member.id}> isn't kickable`)
+            .setColor('#ff0000')
+        , ':x:')
     }
 } as const;
 
@@ -42,6 +106,7 @@ export const getReply = <T extends keyof typeof replies>(x: T, options: Interact
 }
 
 import commandDatas from './commandDatas.json';
+import { dateNow, userName } from "./functions";
 
 export const commandData = <T extends keyof typeof commandDatas.commands>(x: T): typeof commandDatas.commands[T] => {
     return commandDatas.commands[x];

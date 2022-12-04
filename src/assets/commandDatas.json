@@ -16,6 +16,13 @@
         }
     },
     "preconditions": {
-
+        "memberModerable": {
+            "userNotFound": "I cannot find the user",
+            "userIsBot": "This user is a bot",
+            "userTooHighBot": "This user is superior or equal to me in the role hierarchy",
+            "userTooHighMod": "This user is superioir or equal to you in the role hierarchy",
+            "owner": "This user is the owner of the server",
+            "notModeratable": "This user isn't moderatable. Please check my permissions and try again"
+        }
     }
 }
