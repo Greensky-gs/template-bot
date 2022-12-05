@@ -1,5 +1,13 @@
-import { EmbedBuilder, InteractionReplyOptions, User, PermissionsString, Guild, GuildMember, GuildBan } from "discord.js";
-import { userName, dateNow, capitalize, resizeString } from "./functions";
+import {
+    EmbedBuilder,
+    InteractionReplyOptions,
+    User,
+    PermissionsString,
+    Guild,
+    GuildMember,
+    GuildBan
+} from 'discord.js';
+import { userName, dateNow, capitalize, resizeString } from './functions';
 
 const generateData = (content: string | EmbedBuilder, emoji?: string): InteractionReplyOptions => {
     const addEmoji = () => {
@@ -9,12 +17,12 @@ const generateData = (content: string | EmbedBuilder, emoji?: string): Interacti
             return content;
         }
         return content;
-    }
+    };
     if (typeof content === 'string') return { content: addEmoji() as string };
     return {
-        embeds: [ addEmoji() as EmbedBuilder ]
+        embeds: [addEmoji() as EmbedBuilder]
     };
-}
+};
 
 type modOptions = {
     guild: Guild;
@@ -23,7 +31,14 @@ type modOptions = {
     reason: string;
 };
 
-const modEmbed = ({ mod, member, reason, type, typed, insertMemberField = true }: modOptions & { type: string; typed: string; insertMemberField?: boolean }) => {
+const modEmbed = ({
+    mod,
+    member,
+    reason,
+    type,
+    typed,
+    insertMemberField = true
+}: modOptions & { type: string; typed: string; insertMemberField?: boolean }) => {
     const x = new EmbedBuilder()
         .setTimestamp()
         .setTitle(capitalize(type))
@@ -46,19 +61,23 @@ const modEmbed = ({ mod, member, reason, type, typed, insertMemberField = true }
                 value: reason,
                 inline: false
             }
-        )
-    
-    if (insertMemberField) x.setFields({
-        name: 'Member',
-        value: userName(member),
-        inline: true
-    }, ...x.data.fields)
+        );
+
+    if (insertMemberField)
+        x.setFields(
+            {
+                name: 'Member',
+                value: userName(member),
+                inline: true
+            },
+            ...x.data.fields
+        );
     return x;
-}
+};
 
 export const replies = {
     missingPerms: (user: User, permissions: PermissionsString[]) => {
-        return generateData(`You need ${permissions.length} permissions to execute this command.`, ':x:')
+        return generateData(`You need ${permissions.length} permissions to execute this command.`, ':x:');
     },
     customPrecondition: (user: User, text: string) => {
         return generateData(text, ':x:');
@@ -70,69 +89,96 @@ export const replies = {
         return generateData('This command is only executable in a server', ':x:');
     },
     kickInChat: (opts: modOptions) => {
-        return generateData(modEmbed({
-            ...opts,
-            type: 'kick',
-            typed: 'kicked'
-        }));
+        return generateData(
+            modEmbed({
+                ...opts,
+                type: 'kick',
+                typed: 'kicked'
+            })
+        );
     },
     kickToUser: (opts: modOptions) => {
-        return generateData(modEmbed({
-            ...opts,
-            type: 'kick',
-            typed: 'kicked',
-            insertMemberField: false
-        }).setDescription(`You've been kicked from ${opts.guild.name}`))
+        return generateData(
+            modEmbed({
+                ...opts,
+                type: 'kick',
+                typed: 'kicked',
+                insertMemberField: false
+            }).setDescription(`You've been kicked from ${opts.guild.name}`)
+        );
     },
     notKickable: (user: User, member: GuildMember) => {
-        return generateData(new EmbedBuilder()
-            .setTitle("Member not kickable")
-            .setDescription(`<@${member.id}> isn't kickable`)
-            .setColor('#ff0000')
-        , ':x:')
+        return generateData(
+            new EmbedBuilder()
+                .setTitle('Member not kickable')
+                .setDescription(`<@${member.id}> isn't kickable`)
+                .setColor('#ff0000'),
+            ':x:'
+        );
     },
     notBannable: (user: User, member: GuildMember) => {
-        return generateData(new EmbedBuilder()
-            .setTitle("Member not bannable")
-            .setDescription(`<@${member.id}> isn't bannable`)
-            .setColor('#ff0000')
-        , ':x:')
+        return generateData(
+            new EmbedBuilder()
+                .setTitle('Member not bannable')
+                .setDescription(`<@${member.id}> isn't bannable`)
+                .setColor('#ff0000'),
+            ':x:'
+        );
     },
     banInChat: (opts: modOptions) => {
-        return generateData(modEmbed({
-            ...opts,
-            type: 'ban',
-            typed: 'banned'
-        }));
+        return generateData(
+            modEmbed({
+                ...opts,
+                type: 'ban',
+                typed: 'banned'
+            })
+        );
     },
     banToUser: (opts: modOptions) => {
-        return generateData(modEmbed({
-            ...opts,
-            type: 'ban',
-            typed: 'banned',
-            insertMemberField: false
-        }).setDescription(`You've been banned from <@${opts.guild.name}>`))
+        return generateData(
+            modEmbed({
+                ...opts,
+                type: 'ban',
+                typed: 'banned',
+                insertMemberField: false
+            }).setDescription(`You've been banned from <@${opts.guild.name}>`)
+        );
     },
     memberCount: ({ all, humans, bots }: { all: number; bots?: number; humans?: number }) => {
-        if (!humans || !bots) return generateData(new EmbedBuilder()
-            .setTitle("Member count")
-            .setDescription(`We are ${all.toLocaleString(process.env.locale)} in the server`)
-            .setColor('Orange')
-        )
-        return generateData(new EmbedBuilder()
-            .setTitle("Member count")
-            .setDescription(`We are ${all.toLocaleString(process.env.locale)} ( **${humans.toLocaleString(process.env.locale)}** humans and **${bots.toLocaleString(process.env.locale)}** bots ) in the server`)
-            .setColor('Orange')
-        )
+        if (!humans || !bots)
+            return generateData(
+                new EmbedBuilder()
+                    .setTitle('Member count')
+                    .setDescription(`We are ${all.toLocaleString(process.env.locale)} in the server`)
+                    .setColor('Orange')
+            );
+        return generateData(
+            new EmbedBuilder()
+                .setTitle('Member count')
+                .setDescription(
+                    `We are ${all.toLocaleString(process.env.locale)} ( **${humans.toLocaleString(
+                        process.env.locale
+                    )}** humans and **${bots.toLocaleString(process.env.locale)}** bots ) in the server`
+                )
+                .setColor('Orange')
+        );
     },
     banlist: (user: User, bans: GuildBan[]) => {
-        return generateData(new EmbedBuilder()
-            .setTitle("Banlist")
-            .setDescription(resizeString({
-                str: bans.length === 0 ? 'There are no banned members' : `There are **${bans.length}** banned members :\n${bans.map((x => userName(x.user))).join('\n')}`,
-                maxLength: 2000
-            }))
-            .setColor('Orange')
-        )
+        return generateData(
+            new EmbedBuilder()
+                .setTitle('Banlist')
+                .setDescription(
+                    resizeString({
+                        str:
+                            bans.length === 0
+                                ? 'There are no banned members'
+                                : `There are **${bans.length}** banned members :\n${bans
+                                      .map((x) => userName(x.user))
+                                      .join('\n')}`,
+                        maxLength: 2000
+                    })
+                )
+                .setColor('Orange')
+        );
     }
 } as const;
